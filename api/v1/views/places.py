@@ -75,8 +75,8 @@ def update_place(id):
     if place is None:
         abort(404)
     if request.is_json:
-        forbidden = ["id", "created_at", "updated_at", "user_id",
-                     "city_id"]
+        forbidden = ["id", "user_id", "city_id", "created_at",
+                     "updated_at"]
         json_place = request.get_json()
         for k, v in json_place.items():
             if json_place[k] not in forbidden:
