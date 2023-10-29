@@ -74,10 +74,10 @@ def update_place(id):
     place = storage.get(Place, id)
     if place is None:
         abort(404)
-    if request.is_json:
+    json_place = request.get_json()
+    if json_place:
         forbidden = ["id", "user_id", "city_id", "created_at",
                      "updated_at"]
-        json_place = request.get_json()
         for k, v in json_place.items():
             if k not in forbidden:
                 setattr(place, k, v)
