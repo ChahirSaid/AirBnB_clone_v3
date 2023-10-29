@@ -59,6 +59,8 @@ def create_place(id):
         else:
             if storage.get(City, id) is None:
                 abort(404)
+            if storage.get(User, json_place['user_id']):
+                abort(404)
             json_place["city_id"] = id
             new_place = Place(**json_place)
             storage.new(new_place)
