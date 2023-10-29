@@ -47,7 +47,7 @@ def remove_place(id):
     return {}, 200
 
 
-@app_views.route('/cities/<string:id>/places', methods=["POST"])
+@app_views.route('/cities/<string:id>/places/', methods=["POST"])
 def create_place(id):
     """CREATE place by city id"""
     if request.is_json:
