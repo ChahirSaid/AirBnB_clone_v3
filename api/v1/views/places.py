@@ -8,7 +8,7 @@ from models.city import City
 from models.place import Place
 from models.user import User
 from models import storage
-from flask import jsonify, abort, request
+from flask import jsonify, abort, request, make_response
 
 
 @app_views.route('/cities/<string:id>/places', methods=["GET"])
@@ -82,6 +82,6 @@ def update_place(id):
             if k not in forbidden:
                 setattr(place, k, v)
         storage.save()
-        return place.to_dict(), 200
+        return make_response(jsonify(place.to_dict()), 200)
     else:
         abort(400, description="Not a JSON")
