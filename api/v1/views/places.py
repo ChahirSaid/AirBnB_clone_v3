@@ -79,7 +79,7 @@ def update_place(id):
                      "updated_at"]
         json_place = request.get_json()
         for k, v in json_place.items():
-            if json_place[k] not in forbidden:
+            if k not in forbidden:
                 setattr(place, k, v)
         storage.save()
         return place.to_dict(), 200
