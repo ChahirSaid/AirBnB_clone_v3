@@ -44,7 +44,7 @@ def remove_place(id):
         abort(404)
     storage.delete(place)
     storage.save()
-    return {}, 200
+    return jsonify({}), 200
 
 
 @app_views.route('/cities/<string:id>/places/', methods=["POST"])
@@ -75,13 +75,12 @@ def update_place(id):
     if place is None:
         abort(404)
     json_place = request.get_json()
-    if json_place:
-        forbidden = ["id", "user_id", "city_id", "created_at",
-                     "updated_at"]
-        for k, v in json_place.items():
-            if k not in forbidden:
-                setattr(place, k, v)
-        storage.save()
-        return make_response(jsonify(place.to_dict()), 200)
-    else:
+    if not json_place:
         abort(400, description="Not a JSON")
+    forbidden = ["id", "user_id", "city_id", "created_at", 
+                 "updated_at"]
+    for k, v in json_place.items():
+        if k not in forbidden:
+            setattr(place, k, v)
+    storage.save()
+    return make_response(jsonify(place.to_dict()), 200)
