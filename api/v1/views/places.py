@@ -11,7 +11,7 @@ from models import storage
 from flask import jsonify, abort, request
 
 
-@app_views.route('/cities/<string:id>/places/', methods=["GET"])
+@app_views.route('/cities/<string:id>/places', methods=["GET"])
 def places_by_city(id):
     """GET Place by city id"""
     city = storage.get(City, id)
